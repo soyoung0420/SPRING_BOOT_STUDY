@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<div layout:fragment="content" class = "container">
+    <h5 class ="my-3 border-bottom pb-2">질문등록</h5>
+    <form th:object="${questionForm}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <!--th:action속성 삭제하면 CSRF값이 자동생성되지 않으므로 CSRF생성을 위해 input hidden 태그를 추가하였다
+         CSRF값을 수동으로 추가하기 위해 해야하는 스프링 시큐리티의 규칙이다.
+         폼 태그의 action 속성 없이 폼을 전송하면 폼의 action은 현재의 URL을 기준으로 전송이됨.
+         -->
+        <div th:replace="~{form_errors :: formErrorsFragment}"></div>
+        <div class="mb-3">
+          <label for="subject" class="form-label">제목</label>
+          <input type="text" th:field="*{subject}" class="form-control">
+      </div>
+      <div class = "mb-3">
+          <label for="content" class="form-label">내용</label>
+          <textarea th:field="*{content}" class="form-control" rows="10"></textarea>
+      </div>
+      <input type="submit" value="저장하기" class = "btn btn-primary my-2">
+    </form>
+</div>
+</html>
